@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#17152b">
+<title>CLICK & LAUGH — Tiny tools, big laughs</title>
+<style>
+:root{--bg:#111020;--panel:#1d1b32;--panel2:#272440;--ink:#f7f5ff;--muted:#b8b3d2;--pink:#ff5ca8;--yellow:#ffd166;--cyan:#65e4df;--line:#393653}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 10% 0%,#34204a 0,transparent 35%),var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:1080px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{font-weight:950;letter-spacing:.05em;font-size:1.15rem}.brand span{color:var(--pink)}button,select{font:inherit}select{background:var(--panel);color:var(--ink);border:1px solid var(--line);padding:9px 12px;border-radius:12px}
+.hero{padding:54px 0 30px;text-align:center}.eyebrow{color:var(--cyan);font-weight:800;text-transform:uppercase;letter-spacing:.14em;font-size:.78rem}.hero h1{font-size:clamp(2.3rem,7vw,4.7rem);line-height:1.02;margin:12px 0}.hero h1 em{font-style:normal;color:var(--yellow)}.hero p{max-width:620px;margin:16px auto;color:var(--muted);font-size:1.08rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:16px;margin:24px 0}.card{background:linear-gradient(145deg,var(--panel),#19172b);border:1px solid var(--line);border-radius:20px;padding:20px;min-height:210px;display:flex;flex-direction:column}.emoji{font-size:2rem}.card h2{font-size:1.18rem;margin:10px 0 4px}.card p{color:var(--muted);margin:0 0 16px;flex:1}.btn{border:0;border-radius:13px;padding:12px 15px;font-weight:850;cursor:pointer;background:var(--pink);color:#241127}.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}.btn.alt{background:var(--yellow)}.btn.ghost{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+.result{display:none;margin-top:12px;padding:13px;border-radius:13px;background:#111020;border:1px dashed #5a5479;color:var(--yellow);font-weight:750;overflow-wrap:anywhere}.result.show{display:block}.panel{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:22px;margin:24px 0}.panel h2{margin:0 0 8px}.field{width:100%;padding:12px 13px;border-radius:12px;border:1px solid var(--line);background:#111020;color:var(--ink);margin:7px 0 12px}.row{display:flex;gap:10px;flex-wrap:wrap}.row>*{flex:1;min-width:130px}.muted{color:var(--muted)}.foot{border-top:1px solid var(--line);padding:22px 0 10px;color:var(--muted);font-size:.88rem;text-align:center}.tiny{font-size:.78rem;color:var(--muted)}.pill{display:inline-block;padding:4px 9px;border-radius:99px;background:#34304d;color:var(--cyan);font-size:.75rem;font-weight:800}
+@media(max-width:560px){.wrap{padding:16px}.hero{padding:42px 0 20px}.top{align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">CLICK <span>&</span> LAUGH ✦</div>
+    <select id="lang" aria-label="Language"><option value="en">English</option><option value="hr">Hrvatski</option></select>
+  </header>
+  <section class="hero">
+    <div class="eyebrow" id="eyebrow">SMALL TOOLS. BIG NONSENSE.</div>
+    <h1 id="headline">Bored? <em>Press something.</em></h1>
+    <p id="intro">Tiny generators for decisions, jokes and ridiculous little moments. Free to try. No account needed.</p>
+    <span class="pill" id="freepill">5 free mini-tools · instant results</span>
+  </section>
+
+  <main class="grid">
+    <article class="card"><div class="emoji">🎡</div><h2 id="t1">Decision Wheel</h2><p id="d1">Can't decide? Let the wheel make a completely unqualified choice.</p><button class="btn" onclick="spin()">Spin the wheel</button><div class="result" id="r1"></div></article>
+    <article class="card"><div class="emoji">🔥</div><h2 id="t2">Friendly Roast</h2><p id="d2">Enter a name and get a playful roast. Keep it friendly.</p><input class="field" id="roastname" placeholder="Name" maxlength="28"><button class="btn" onclick="roast()">Roast me</button><div class="result" id="r2"></div></article>
+    <article class="card"><div class="emoji">💘</div><h2 id="t3">Love Calculator</h2><p id="d3">A scientifically unscientific compatibility score.</p><div class="row"><input class="field" id="name1" placeholder="Name one" maxlength="24"><input class="field" id="name2" placeholder="Name two" maxlength="24"></div><button class="btn" onclick="love()">Calculate love</button><div class="result" id="r3"></div></article>
+    <article class="card"><div class="emoji">🫣</div><h2 id="t4">Excuse Generator</h2><p id="d4">Need a ridiculous excuse for being late or skipping plans?</p><button class="btn" onclick="excuse()">Generate excuse</button><div class="result" id="r4"></div></article>
+    <article class="card"><div class="emoji">⚡</div><h2 id="t5">Random Challenge</h2><p id="d5">A tiny challenge to make the next minute less boring.</p><button class="btn" onclick="challenge()">Give me a challenge</button><div class="result" id="r5"></div></article>
+  </main>
+
+  <section class="panel">
+    <h2 id="premiumtitle">Want the ridiculous deluxe edition?</h2>
+    <p class="muted" id="premiumtext">Premium packs are planned: extra roasts, themed challenges and shareable result cards. Payments are not enabled in this first version.</p>
+    <button class="btn alt" id="notify" onclick="alert(currentLang==='hr'?'Premium još nije dostupan. Hvala na interesu!':'Premium is not available yet. Thanks for your interest!')">Coming soon</button>
+    <p class="tiny" id="notetext">This is an entertainment site. Results are randomly generated and are not advice or factual assessments.</p>
+  </section>
+  <footer class="foot">© <span id="year"></span> CLICK & LAUGH · <span id="footerline">Made for harmless nonsense.</span></footer>
+</div>
+<script>
+const $=id=>document.getElementById(id);let currentLang='en';
+const data={
+en:{eyebrow:'SMALL TOOLS. BIG NONSENSE.',headline:'Bored? <em>Press something.</em>',intro:'Tiny generators for decisions, jokes and ridiculous little moments. Free to try. No account needed.',freepill:'5 free mini-tools · instant results',titles:['Decision Wheel','Friendly Roast','Love Calculator','Excuse Generator','Random Challenge'],descs:['Can’t decide? Let the wheel make a completely unqualified choice.','Enter a name and get a playful roast. Keep it friendly.','A scientifically unscientific compatibility score.','Need a ridiculous excuse for being late or skipping plans?','A tiny challenge to make the next minute less boring.'],buttons:['Spin the wheel','Roast me','Calculate love','Generate excuse','Give me a challenge'],placeholder:['Name','Name one','Name two'],premiumtitle:'Want the ridiculous deluxe edition?',premiumtext:'Premium packs are planned: extra roasts, themed challenges and shareable result cards. Payments are not enabled in this first version.',notify:'Coming soon',notetext:'This is an entertainment site. Results are randomly generated and are not advice or factual assessments.',footerline:'Made for harmless nonsense.',empty:'Enter a name first!'},
+hr:{eyebrow:'MALE ALATKE. VELIKA GLUPOST.',headline:'Dosadno ti je? <em>Pritisni nešto.</em>',intro:'Mali generatori odluka, šala i potpuno besmislenih trenutaka. Besplatno isprobavanje. Bez registracije.',freepill:'5 besplatnih alatki · rezultati odmah',titles:['Kotač odluka','Prijateljski roast','Ljubavni kalkulator','Generator izgovora','Nasumični izazov'],descs:['Ne možeš odlučiti? Prepusti izbor potpuno nestručnom kotaču.','Upiši ime i dobit ćeš šaljivu prozivku. Bez vrijeđanja.','Znanstveno neznanstveni postotak kompatibilnosti.','Treba ti glup izgovor za kašnjenje ili otkazivanje plana?','Mali izazov da sljedeća minuta bude manje dosadna.'],buttons:['Zavrti kotač','Ispeci me','Izračunaj ljubav','Generiraj izgovor','Daj mi izazov'],placeholder:['Ime','Prvo ime','Drugo ime'],premiumtitle:'Želiš deluxe izdanje gluposti?',premiumtext:'U planu su premium paketi: dodatni roastovi, tematski izazovi i kartice rezultata za dijeljenje. Plaćanje još nije uključeno u prvoj verziji.',notify:'Uskoro',notetext:'Ovo je zabavna stranica. Rezultati su nasumični i nisu savjet ni stvarna procjena.',footerline:'Stvoreno za bezazlene gluposti.',empty:'Prvo upiši ime!'}
+};
+function setResult(id,text){$(id).textContent=text;$(id).classList.add('show')}
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function spin(){setResult('r1',pick(currentLang==='hr'?['DA!','NE!','Možda sutra.','Baci novčić.','Pitaj nekoga tko zna još manje.','Apsolutno da!']:['YES!','NO!','Maybe tomorrow.','Flip a real coin.','Ask someone even less qualified.','Absolutely yes!']))}
+function roast(){let n=$('roastname').value.trim();if(!n)return setResult('r2',data[currentLang].empty);setResult('r2',pick(currentLang==='hr'?[`${n}, tvoj Wi‑Fi ima bolju povezanost s ljudima nego ti.` ,`${n}, čak i ponedjeljak ima više energije.` ,`${n}, Google te pita trebaš li pomoć.` ,`${n}, tvoj plan B još uvijek učitava.`]:[`${n}, even your Wi‑Fi has better connections.` ,`${n}, Monday has more energy than you.` ,`${n}, Google just asked if you need help.` ,`${n}, your plan B is still loading.`]))}
+function love(){let a=$('name1').value.trim(),b=$('name2').value.trim();if(!a||!b)return setResult('r3',data[currentLang].empty);let seed=(a.toLowerCase()+b.toLowerCase()).split('').reduce((s,c)=>s+c.charCodeAt(0),0);let score=35+(seed%66);setResult('r3',`${a} + ${b}: ${score}% 💘`+(currentLang==='hr'?' (zabavni rezultat, ne znanost!)':' (for fun, not science!)'))}
+function excuse(){setResult('r4',pick(currentLang==='hr'?['Kasnim jer mi je alarm dao lažnu nadu.','Morao/la sam riješiti hitan problem s jednom vrlo tvrdoglavom čarapom.','Krenuo/la sam na vrijeme, ali vrijeme nije surađivalo.','Moj kauč je pokrenuo pregovore.']:['I’m late because my alarm gave me false hope.','I had an urgent issue with a very stubborn sock.','I left on time, but time did not cooperate.','My sofa started negotiations.']))}
+function challenge(){setResult('r5',pick(currentLang==='hr'?['Pošalji prijatelju samo 🥔 i ne objašnjavaj.','Hodaj kao filmska zvijezda sljedećih 30 sekundi.','Izmisli ime za svoju lijevu cipelu.','Napravi dramatičan ulazak u sobu.','Reci “odlično pitanje” prije sljedećeg odgovora.']:['Text a friend only “🥔” and give no explanation.','Walk like a movie star for the next 30 seconds.','Invent a name for your left shoe.','Make a dramatic entrance into the room.','Say “excellent question” before your next answer.']))}
+function setLang(l){currentLang=l;let d=data[l];$('eyebrow').textContent=d.eyebrow;$('headline').innerHTML=d.headline;$('intro').textContent=d.intro;$('freepill').textContent=d.freepill;for(let i=1;i<=5;i++){$('t'+i).textContent=d.titles[i-1];$('d'+i).textContent=d.descs[i-1];document.querySelectorAll('.card')[i-1].querySelector('button').textContent=d.buttons[i-1]}$('roastname').placeholder=d.placeholder[0];$('name1').placeholder=d.placeholder[1];$('name2').placeholder=d.placeholder[2];$('premiumtitle').textContent=d.premiumtitle;$('premiumtext').textContent=d.premiumtext;$('notify').textContent=d.notify;$('notetext').textContent=d.notetext;$('footerline').textContent=d.footerline;document.documentElement.lang=l}
+$('lang').addEventListener('change',e=>setLang(e.target.value));$('year').textContent=new Date().getFullYear();setLang('en');
+</script>
+</body></html>
